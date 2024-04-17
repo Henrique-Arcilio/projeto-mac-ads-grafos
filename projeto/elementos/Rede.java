@@ -1,5 +1,3 @@
-package CriandoUmGrafo.projeto.elementos;
-
 import java.util.HashMap;
 
 public class Rede {
