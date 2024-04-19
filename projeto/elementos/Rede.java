@@ -5,7 +5,7 @@ public class Rede {
   
     private HashMap<Usuario, Integer> usuariosDaRede = new HashMap<Usuario, Integer>();
 
-    public void cadastarUsuario(){
+    public void cadastarUsuario() throws Exception{
         
         Scanner scanner = new Scanner(System.in);
         boolean valido = false;
