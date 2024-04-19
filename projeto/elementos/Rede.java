@@ -39,8 +39,14 @@ public class Rede {
         scanner.close();
     }
 
-    public void fazerLoginDoUsuario(){
-
+    public boolean validarLogin(String nome, String senha){
+        for(Usuario usuario : usuariosDaRede.keySet()){
+            if(usuario.getNome().equals(nome) && usuario.getSenha().equals(senha)){
+                    return true;
+                    break;
+                }
+        }
+        return false;
     }
 
     public void recomendarAmigos(){
