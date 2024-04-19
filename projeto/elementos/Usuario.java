@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Map;
 
 public class Usuario {
@@ -28,26 +29,21 @@ public class Usuario {
         this.senha = senha;
     }
 
-    /**
-     * @param nomeAdicionar
-     */
-
     public void adicionarAmigo(String nomeAdicionar){
 
-        if (verificarExistenciaDeAmigo(nomeAdicionar)){
-            listaDeAmigos.add(String nomeAdicionar)
+        if (verificarExistenciaDeUsuario(nomeAdicionar)){
+            
         }
 
     }
 
-    public boolean verificarExistenciaDeAmigo(String nome) {
-        for (Map.Entry<Usuario, Integer> entry : Rede.getUsuariosDaRede().entrySet()) {
-            Usuario usuario = entry.getKey();
+    public boolean verificarExistenciaDeUsuario(String nome) {
+        for (Usuario usuario : Rede.getUsuariosDaRede().keySet()) {
             if (nome.equals(usuario.getNome())) {
                 return true;
             }
         }
         return false;
     }
-      
+    
 }
