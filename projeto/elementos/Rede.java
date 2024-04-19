@@ -21,8 +21,7 @@ public class Rede {
             if(usuariosDaRede.size() > 0){
                 for(Usuario usuario : usuariosDaRede.keySet()){
                     if(usuario.getNome().equals(nome)){
-                        System.out.printf("Usuário %s já existe. Tente novamente.", usuario.getNome());
-                        Exception NomeExistente = new Exception("Nome já existe");
+                        Exception NomeExistente = new Exception(usuario.getNome() + " já existe, tente novamente");
                         throw NomeExistente;
                     }
                 }
@@ -54,6 +53,6 @@ public class Rede {
     }
 
     public static HashMap<Usuario, Integer> getUsuariosDaRede() {
-    return usuariosDaRede;
+        return usuariosDaRede;
     }
 }
