@@ -46,4 +46,12 @@ public class Rede {
     public void recomendarAmigos(){
 
     }
+
+    public HashMap<Usuario, Integer> getUsuariosDaRede() {
+        return usuariosDaRede;
+    }
+
+    public void setUsuariosDaRede(HashMap<Usuario, Integer> usuariosDaRede) {
+        this.usuariosDaRede = usuariosDaRede;
+    }
 }
