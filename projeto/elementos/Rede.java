@@ -3,7 +3,7 @@ import java.util.Scanner;
 
 public class Rede {
   
-    private HashMap<Usuario, Integer> usuariosDaRede = new HashMap<Usuario, Integer>();
+    private static HashMap<Usuario, Integer> usuariosDaRede = new HashMap<Usuario, Integer>();
 
     public void cadastarUsuario() throws Exception{
         
@@ -45,5 +45,9 @@ public class Rede {
 
     public void recomendarAmigos(){
 
+    }
+
+    public static HashMap<Usuario, Integer> getUsuariosDaRede() {
+        return usuariosDaRede;
     }
 }

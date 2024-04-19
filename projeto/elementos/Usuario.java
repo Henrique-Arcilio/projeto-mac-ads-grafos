@@ -1,16 +1,18 @@
 import java.util.ArrayList;
+import java.util.Map;
 
 public class Usuario {
-    private String nome;
+    private static String nome;
     private String senha;
     private ArrayList<Usuario>listaDeAmigos;
 
     public Usuario(String nome, String senha){
         this.nome = nome;
         this.senha = senha;
+        this.listaDeAmigos = new ArrayList<>();
     }
 
-    public String getNome(){
+    public static String getNome(){
         return nome;
     }
 
@@ -26,11 +28,26 @@ public class Usuario {
         this.senha = senha;
     }
 
+    /**
+     * @param nomeAdicionar
+     */
+
     public void adicionarAmigo(String nomeAdicionar){
 
+        if (verificarExistenciaDeAmigo(nomeAdicionar)){
+            listaDeAmigos.add(String nomeAdicionar)
+        }
+
     }
 
-    public boolean verificarExistenciaDeAmigo(nome){
-        
+    public boolean verificarExistenciaDeAmigo(String nome) {
+        for (Map.Entry<Usuario, Integer> entry : Rede.getUsuariosDaRede().entrySet()) {
+            Usuario usuario = entry.getKey();
+            if (nome.equals(usuario.getNome())) {
+                return true;
+            }
+        }
+        return false;
     }
+      
 }
