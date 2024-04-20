@@ -1,9 +1,7 @@
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Map;
 
 public class Usuario {
-    private static String nome;
+    private String nome;
     private String senha;
     private ArrayList<Usuario>listaDeAmigos;
 
@@ -13,11 +11,11 @@ public class Usuario {
         this.listaDeAmigos = new ArrayList<>();
     }
 
-    public static String getNome(){
+    public String getNome(){
         return nome;
     }
 
-    public void setNome(){
+    public void setNome(String nome){
         this.nome = nome;
     }
 
@@ -32,7 +30,6 @@ public class Usuario {
     public void adicionarAmigo(String nomeAdicionar){
 
         if (verificarExistenciaDeUsuario(nomeAdicionar)){
-            
         }
 
     }
