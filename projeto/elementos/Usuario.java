@@ -3,12 +3,11 @@ import java.util.ArrayList;
 public class Usuario {
     private String nome;
     private String senha;
-    private ArrayList<Usuario>listaDeAmigos;
+    private ArrayList<Usuario> listaDeAmigos = new ArrayList<Usuario>();
 
     public Usuario(String nome, String senha){
         this.nome = nome;
         this.senha = senha;
-        this.listaDeAmigos = new ArrayList<>();
     }
 
     public String getNome(){
@@ -28,10 +27,10 @@ public class Usuario {
     }
 
     public void adicionarAmigo(String nomeAdicionar){
-        if (verificarExistenciaDeUsuario(nomeAdicionar) && verificarExistenciaDeAmizade(nomeAdicionar)){
-            for (Usuario usuario : Rede.getUsuariosDaRede().keySet()){
-                if (nome.equals(usuario.getNome())){
-                    listaDeAmigos.add(usuario);
+        if (!(verificarExistenciaDeUsuario(nomeAdicionar) && verificarExistenciaDeAmizade(nomeAdicionar))){
+            for (Usuario usuario : Rede.getUsuariosDaRede().values()){
+                if (usuario.getNome().equals(nomeAdicionar)){
+                    this.listaDeAmigos.add(usuario);
                     System.out.println("Amigo adicionado!");
                 }
             }
@@ -46,15 +45,15 @@ public class Usuario {
 
     public boolean verificarExistenciaDeAmizade(String nome){
         for(Usuario amigo : listaDeAmigos){
-            if (amigo.equals(nome)){
-                return false;
+            if (amigo.getNome().equals(nome)){
+                return true;
             }
         }
-        return true;
+        return false;
     }
 
     public boolean verificarExistenciaDeUsuario(String nome) {
-        for (Usuario usuario : Rede.getUsuariosDaRede().keySet()) {
+        for (Usuario usuario : Rede.getUsuariosDaRede().values()) {
             if (nome.equals(usuario.getNome())) {
                 return true;
             }

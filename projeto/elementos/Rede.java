@@ -3,7 +3,7 @@ import java.util.Scanner;
 
 public class Rede {
   
-    private static HashMap<Usuario, Integer> usuariosDaRede = new HashMap<Usuario, Integer>();
+    private static HashMap<Integer, Usuario> usuariosDaRede = new HashMap<Integer, Usuario>();
 
     public static void cadastrarUsuario() throws Exception{
         
@@ -19,7 +19,7 @@ public class Rede {
             }
 
             if(usuariosDaRede.size() > 0){
-                for(Usuario usuario : usuariosDaRede.keySet()){
+                for(Usuario usuario : usuariosDaRede.values()){
                     if(usuario.getNome().equals(nome)){
                         Exception NomeExistente = new Exception(usuario.getNome() + " já existe, tente novamente");
                         throw NomeExistente;
@@ -36,7 +36,7 @@ public class Rede {
             }
 
             Usuario usuario = new Usuario(nome, senha);
-            usuariosDaRede.put(usuario, usuariosDaRede.size());
+            usuariosDaRede.put(usuariosDaRede.size(), usuario);
 
             System.out.println("Seu cadrasto foi criado com sucesso");
             break;
@@ -44,7 +44,7 @@ public class Rede {
     }
 
     public static boolean validarLogin(String nome, String senha){
-        for(Usuario usuario : usuariosDaRede.keySet()){
+        for(Usuario usuario : usuariosDaRede.values()){
             if(usuario.getNome().equals(nome) && usuario.getSenha().equals(senha)){
                     return true;
                 }
@@ -53,10 +53,9 @@ public class Rede {
     }
 
     public static void recomendarAmigos(){
-
     }
 
-    public static HashMap<Usuario, Integer> getUsuariosDaRede() {
+    public static HashMap<Integer, Usuario> getUsuariosDaRede() {
         return usuariosDaRede;
     }
 }
