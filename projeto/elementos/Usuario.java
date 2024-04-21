@@ -1,9 +1,7 @@
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Map;
 
 public class Usuario {
-    private static String nome;
+    private String nome;
     private String senha;
     private ArrayList<Usuario>listaDeAmigos;
 
@@ -13,7 +11,7 @@ public class Usuario {
         this.listaDeAmigos = new ArrayList<>();
     }
 
-    public static String getNome(){
+    public String getNome(){
         return nome;
     }
 
@@ -30,11 +28,29 @@ public class Usuario {
     }
 
     public void adicionarAmigo(String nomeAdicionar){
-
-        if (verificarExistenciaDeUsuario(nomeAdicionar)){
-            
+        if (verificarExistenciaDeUsuario(nomeAdicionar) && verificarExistenciaDeAmizade(nomeAdicionar)){
+            for (Usuario usuario : Rede.getUsuariosDaRede().keySet()){
+                if (nome.equals(usuario.getNome())){
+                    listaDeAmigos.add(usuario);
+                    System.out.println("Amigo adicionado!");
+                }
+            }
         }
+    }
 
+    public void excluirAmigo(String nomeRemover){
+        if (verificarExistenciaDeUsuario(nomeRemover) && verificarExistenciaDeAmizade(nomeRemover) == false){
+
+        }
+    }
+
+    public boolean verificarExistenciaDeAmizade(String nome){
+        for(Usuario amigo : listaDeAmigos){
+            if (amigo.equals(nome)){
+                return false;
+            }
+        }
+        return true;
     }
 
     public boolean verificarExistenciaDeUsuario(String nome) {
@@ -45,5 +61,5 @@ public class Usuario {
         }
         return false;
     }
-    
+
 }
