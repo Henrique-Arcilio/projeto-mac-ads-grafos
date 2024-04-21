@@ -5,7 +5,7 @@ public class Rede {
   
     private static HashMap<Usuario, Integer> usuariosDaRede = new HashMap<Usuario, Integer>();
 
-    public void cadastrarUsuario() throws Exception{
+    public static void cadastrarUsuario() throws Exception{
         
         Scanner scanner = new Scanner(System.in);
 
@@ -13,8 +13,8 @@ public class Rede {
             System.out.print("Digite seu novo nome de login: ");
             String nome = scanner.nextLine();
 
-            if (nome.equals("") ||  nome == null){
-                Exception NomeInvalido = new Exception("Você deve digitar um nome válido.");
+            if (nome.length() < 2 ||  nome.length() > 30){
+                Exception NomeInvalido = new Exception("Seu login deve ter de 2 à 30 caracteres");
                 throw NomeInvalido;
             }
 
@@ -26,20 +26,24 @@ public class Rede {
                     }
                 }
             }
-            
+
             System.out.print("Digite sua senha: ");
-            String senha = scanner.next();
+            String senha = scanner.nextLine();
+
+            if((senha.length() < 8 ||  senha.length() > 30)){
+                Exception SenhaInvalida = new Exception("A senha precisa ter de 8 à 30 caracteres");
+                throw SenhaInvalida;
+            }
 
             Usuario usuario = new Usuario(nome, senha);
             usuariosDaRede.put(usuario, usuariosDaRede.size());
+
             System.out.println("Seu cadrasto foi criado com sucesso");
             break;
         }
-    
-
     }
 
-    public boolean validarLogin(String nome, String senha){
+    public static boolean validarLogin(String nome, String senha){
         for(Usuario usuario : usuariosDaRede.keySet()){
             if(usuario.getNome().equals(nome) && usuario.getSenha().equals(senha)){
                     return true;
@@ -48,7 +52,7 @@ public class Rede {
         return false;
     }
 
-    public void recomendarAmigos(){
+    public static void recomendarAmigos(){
 
     }
 
