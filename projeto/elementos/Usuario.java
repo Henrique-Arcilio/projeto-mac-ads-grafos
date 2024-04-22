@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class Usuario {
     private String nome;
@@ -24,6 +25,10 @@ public class Usuario {
 
     public void setSenha(String senha){
         this.senha = senha;
+    }
+
+    public ArrayList<Usuario> getListaDeAmigos(){
+        return this.listaDeAmigos;
     }
 
     public void adicionarAmigo(String nomeAdicionar){
@@ -61,4 +66,21 @@ public class Usuario {
         return false;
     }
 
+    public ArrayList<Integer> listarAmigosPorIndex(){
+        
+        ArrayList<Integer> listaDeAmigosPorIndex = new ArrayList<Integer>();
+        HashMap<Integer, Usuario> usuariosDaRede = Rede.getUsuariosDaRede();
+
+        if(listaDeAmigos.size() > 0){
+            for(Usuario amigo : listaDeAmigos){
+                for(Integer index : usuariosDaRede.keySet()){
+                    if(usuariosDaRede.get(index).equals(amigo)){
+                        listaDeAmigosPorIndex.add(index);
+                    }
+                }
+            }
+        }
+        return listaDeAmigosPorIndex;
+    }
+        
 }
