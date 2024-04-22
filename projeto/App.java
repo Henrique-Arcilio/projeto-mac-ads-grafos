@@ -27,10 +27,6 @@ public class App {
             Usuario user = Rede.getUsuariosDaRede().get(0);
             System.out.println(Rede.recomendarAmigos(user));
 
-
-
-
-            
             int [][] matriza = matriz.criarMatriz();
             for (int i = 0; i < matriza.length; i++) {
                 for (int j = 0; j < matriza[i].length; j++) {
