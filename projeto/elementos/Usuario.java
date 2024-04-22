@@ -27,7 +27,7 @@ public class Usuario {
     }
 
     public void adicionarAmigo(String nomeAdicionar){
-        if (!(verificarExistenciaDeUsuario(nomeAdicionar) && verificarExistenciaDeAmizade(nomeAdicionar))){
+        if (!(verificarExistenciaDeAmizade(nomeAdicionar)) && verificarExistenciaDeUsuario(nomeAdicionar)){
             for (Usuario usuario : Rede.getUsuariosDaRede().values()){
                 if (usuario.getNome().equals(nomeAdicionar)){
                     this.listaDeAmigos.add(usuario);
