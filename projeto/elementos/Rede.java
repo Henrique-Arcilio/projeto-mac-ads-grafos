@@ -56,33 +56,33 @@ public class Rede {
     public static HashMap<String, Integer> recomendarAmigos(Usuario usuario){
 
         int[][] matriz = MatrizAdjacencia.criarMatriz();
-        Integer usuarioIndex = null;
+        Integer indexUsuarioAlvo = null;
 
         HashMap<String, Integer> AmigosRecomendaveis = new HashMap<String, Integer>();
         for (int index : usuariosDaRede.keySet()){
             if(usuario.equals(usuariosDaRede.get(index))){
-                usuarioIndex = index;
+                indexUsuarioAlvo = index;
                 break;
             }
          
         }
-        int contador = 0;    
+        int numAmigosComuns = 0;    
         for(int i = 0; i < matriz.length; i++){
 
-            if(usuarioIndex != null && matriz[i][usuarioIndex] == 0 && i != usuarioIndex){
+            if(indexUsuarioAlvo != null && matriz[i][indexUsuarioAlvo] == 0 && i != indexUsuarioAlvo){
 
                Usuario usuarioNaoAmigo = usuariosDaRede.get(i);
 
-               ArrayList<Integer> listaIndexUsuario = usuarioNaoAmigo.listarAmigosPorIndex();
-               
-               if(listaIndexUsuario.size() > 0){
-                    for(Integer index : listaIndexUsuario){
-                            if(matriz[index][usuarioIndex] == 1){
-                                contador += 1;
+               ArrayList<Integer> listaDeAmigosDoOutro = usuarioNaoAmigo.listarAmigosPorIndex();
+
+               if(listaDeAmigosDoOutro.size() > 0){
+                    for(Integer index : listaDeAmigosDoOutro){
+                            if(matriz[index][indexUsuarioAlvo] == 1){
+                                numAmigosComuns += 1;
                             }
                     } 
-                    AmigosRecomendaveis.put(usuarioNaoAmigo.getNome(), contador);
-                    contador = 0;
+                    AmigosRecomendaveis.put(usuarioNaoAmigo.getNome(), numAmigosComuns);
+                    numAmigosComuns = 0;
                 }
             }
         }
