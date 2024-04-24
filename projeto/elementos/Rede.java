@@ -6,7 +6,7 @@ public class Rede {
   
     private static HashMap<Integer, Usuario> usuariosDaRede = new HashMap<Integer, Usuario>();
 
-    public static void cadastrarUsuario() throws Exception{
+    public static Usuario cadastrarUsuario() throws Exception{
         
         Scanner scanner = new Scanner(System.in);
 
@@ -40,7 +40,7 @@ public class Rede {
             usuariosDaRede.put(usuariosDaRede.size(), usuario);
 
             System.out.println("Seu cadrasto foi criado com sucesso");
-            break;
+            return usuario;
         }
     }
 
