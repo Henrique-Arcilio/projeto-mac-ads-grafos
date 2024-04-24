@@ -33,7 +33,6 @@ public class Menu {
                 case 4:
                     System.out.println("--- Exibir lista de amigos ---");
                     break;
-
             }
         } while (escolha != 0);
 
@@ -63,24 +62,26 @@ public class Menu {
         System.out.println();
         System.out.print("Digite o numero correspondente a sua escolha: ");
         escolhaLogin = scanner.nextInt();
-
+    
         switch (escolhaLogin) {
             case 1:
                 System.out.println("---- Logar ----");
                 System.out.println("Digite seu nome de usuario: ");
                 login = scanner.next();
                 System.out.println("Digite a sua senha: ");
-                senha = scanner.nextLine();
-                if(Rede.validarLogin(login, senha)){}
+                senha = scanner.next();
+                Usuario usuario = Rede.validarLogin(login, senha);
+                
+                if(usuario != null){
+                    Menu menu = new Menu();
+                    menu.run(usuario);
+                } else {mostrarMenuInicial();}
                 break;
             case 2:
                 try {
-                    Rede rede = new Rede();
+                    Usuario usuarioCadastrar = Rede.cadastrarUsuario();
                     Menu menu = new Menu();
-
-                    Usuario usuario = rede.cadastrarUsuario();
-                    menu.run(usuario);
-                
+                    menu.run(usuarioCadastrar);
                 } catch (Exception e) {
                     System.out.println("Ocorreu um erro ao cadastrar o usuário: " + e.getMessage());
                 }

@@ -44,14 +44,15 @@ public class Rede {
         }
     }
 
-    public static boolean validarLogin(String nome, String senha){
+    public static Usuario validarLogin(String nome, String senha){
         for(Usuario usuario : usuariosDaRede.values()){
             if(usuario.getNome().equals(nome) && usuario.getSenha().equals(senha)){
-                    return true;
-                }
+                return usuario;
+            }
         }
-        return false;
+        return null;
     }
+    
 
     public static HashMap<String, Integer> recomendarAmigos(Usuario usuario){
 
