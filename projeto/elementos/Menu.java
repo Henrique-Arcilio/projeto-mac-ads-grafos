@@ -1,3 +1,6 @@
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Scanner;
 
 public class Menu {
@@ -28,10 +31,21 @@ public class Menu {
                     break;
                 case 3:
                     System.out.println("--- Recomendar amigo ---");
-                    Rede.recomendarAmigos(usuario);
+                    HashMap<String, Integer> listaDeRecomendados = Rede.recomendarAmigos(usuario);
+                    for (Map.Entry<String, Integer> entry : listaDeRecomendados.entrySet()) {
+                        String amigo = entry.getKey();
+                        Integer amigosEmComum = entry.getValue();
+                        System.out.println("Amigo: " + amigo + ", Quantidade de amigos em comum: " + amigosEmComum);
+                    }
+
                     break;
                 case 4:
                     System.out.println("--- Exibir lista de amigos ---");
+                    ArrayList<Usuario> listaDeAmigos = usuario.getListaDeAmigos();
+                    for (Usuario usuarioMostrar : listaDeAmigos) {
+                        System.out.println(usuarioMostrar.getNome());
+                    }
+                    System.out.println();
                     break;
             }
         } while (escolha != 0);
