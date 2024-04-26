@@ -17,20 +17,23 @@ public class Menu {
             switch (escolha) {
                 case 0:
                     mostrarMenuInicial();
+                    break;
                 case 1:
                     System.out.println("--- Adicionar amigo ---");
-                    System.out.println("Digite o nome para adicionar: ");
+                    System.out.print("Digite o nome para adicionar: ");
                     nome = scanner.next();
                     usuario.adicionarAmigo(nome);
                     break;
                 case 2:
                     System.out.println("--- Remover amigo ---");
-                    System.out.println("Digite o nome do amigo que você deseja remover: ");
-                    nome = scanner.nextLine();
+                    System.out.print("Digite o nome do amigo que você deseja remover: ");
+                    nome = scanner.next();
                     usuario.excluirAmigo(nome);
                     break;
                 case 3:
-                    System.out.println("--- Recomendar amigo ---");
+
+                    System.out.println("--- Amigos Recomendados ---");
+
                     HashMap<String, Integer> listaDeRecomendados = Rede.recomendarAmigos(usuario);
                     for (Map.Entry<String, Integer> entry : listaDeRecomendados.entrySet()) {
                         String amigo = entry.getKey();
@@ -40,7 +43,7 @@ public class Menu {
 
                     break;
                 case 4:
-                    System.out.println("--- Exibir lista de amigos ---");
+                    System.out.println("--- Lista de Amigos ---");
                     ArrayList<Usuario> listaDeAmigos = usuario.getListaDeAmigos();
                     for (Usuario usuarioMostrar : listaDeAmigos) {
                         System.out.println(usuarioMostrar.getNome());
@@ -54,30 +57,32 @@ public class Menu {
     }
 
     public void mostrarMenu(){
-        System.out.println("---- Menu ----");
-        System.out.println("0- Sair"); // quando ele sair, tem que ir para a tela de login / cadastrar
-        System.out.println("1- Adicionar amigo");
-        System.out.println("2- Remover amigo");
-        System.out.println("3- Recomendar amigo");
-        System.out.println("4- Exibir lista de amigos");
-        System.out.println("5- Conversar com amigo");
-        System.out.print("Digite o numero correspondente a sua escolha: ");
+
+        System.out.println("""
+            ---- Menu ----
+            0- Sair
+            1- Adicionar amigo
+            2- Remover amigo
+            3- Recomendar amigo
+            4- Exibir lista de amigos
+            5- Conversar com amigo
+            Digite o numero correspondente a sua escolha: """);
     }
 
     public static void mostrarMenuInicial(){
         Scanner scanner = new Scanner(System.in);
-        int escolhaLogin;
-        String login;
-        String senha;
+        int escolha;
+        String login, senha;
 
-        System.out.println("---- Bem vindo(a)! ----");
-        System.out.println("1- Logar com uma conta ja existente");
-        System.out.println("2- Cadastrar uma nova conta");
-        System.out.println();
-        System.out.print("Digite o numero correspondente a sua escolha: ");
-        escolhaLogin = scanner.nextInt();
+        System.out.print("""
+            ---- Bem vindo(a)! ----
+            1- Logar com uma conta ja existente"
+            2- Cadastrar uma nova conta
+            Digite o numero correspondente a sua escolha: """);
+
+        escolha = scanner.nextInt();
     
-        switch (escolhaLogin) {
+        switch (escolha) {
             case 1:
                 System.out.println("---- Logar ----");
                 System.out.println("Digite seu nome de usuario: ");
@@ -87,18 +92,25 @@ public class Menu {
                 Usuario usuario = Rede.validarLogin(login, senha);
                 
                 if(usuario != null){
+                    System.out.println("Seu cadastro foi criado.");
                     Menu menu = new Menu();
                     menu.run(usuario);
-                } else {mostrarMenuInicial();}
+                } else {
+                    mostrarMenuInicial();}
                 break;
             case 2:
-                try {
-                    Usuario usuarioCadastrar = Rede.cadastrarUsuario();
-                    Menu menu = new Menu();
-                    menu.run(usuarioCadastrar);
-                } catch (Exception e) {
-                    System.out.println("Ocorreu um erro ao cadastrar o usuário: " + e.getMessage());
+                while (true) {
+                    try {
+                        Usuario usuarioCadastrar = Rede.cadastrarUsuario();
+                        Menu menu = new Menu();
+                        menu.run(usuarioCadastrar);
+                        break;
+                    } catch (Exception e) {
+                        System.out.println("Ocorreu um erro ao cadastrar o usuário: " + e.getMessage());
+                        
+                    }
                 }
+                
                 break;
             default:
                 mostrarMenuInicial();

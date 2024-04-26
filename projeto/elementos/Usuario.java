@@ -37,6 +37,7 @@ public class Usuario {
                 if (usuario.getNome().equals(nomeAdicionar)){
                     this.listaDeAmigos.add(usuario);
                     System.out.println("Amigo adicionado!");
+                    usuario.adicionarAmigo(this.nome); //O usuário também adiciona a pessoa
                 }
             }
         }
