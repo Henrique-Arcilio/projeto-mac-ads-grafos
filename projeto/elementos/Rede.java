@@ -37,7 +37,11 @@ public class Rede {
             }
 
             Usuario usuario = new Usuario(nome, senha);
-            usuariosDaRede.put(usuariosDaRede.size(), usuario);
+            Integer idUsuario = usuariosDaRede.size();
+            usuario.setIdUsuario(idUsuario);
+            usuariosDaRede.put(idUsuario, usuario);
+            
+
 
             System.out.println("Seu cadrasto foi criado com sucesso");
             return usuario;
@@ -57,23 +61,16 @@ public class Rede {
     public static HashMap<String, Integer> recomendarAmigos(Usuario usuario){
 
         int[][] matriz = MatrizAdjacencia.criarMatriz();
-        Integer indexUsuarioAlvo = null;
-
+        Integer indexUsuarioAlvo = usuario.getIdUsuario();
         HashMap<String, Integer> AmigosRecomendaveis = new HashMap<String, Integer>();
-        for (int index : usuariosDaRede.keySet()){
-            if(usuario.equals(usuariosDaRede.get(index))){
-                indexUsuarioAlvo = index;
-                break;
-            }
-         
-        }
+
         int numAmigosComuns = 0;    
+        
         for(int i = 0; i < matriz.length; i++){
 
             if(indexUsuarioAlvo != null && matriz[i][indexUsuarioAlvo] == 0 && i != indexUsuarioAlvo){
 
                Usuario usuarioNaoAmigo = usuariosDaRede.get(i);
-
                ArrayList<Integer> listaDeAmigosDoOutro = usuarioNaoAmigo.listarAmigosPorIndex();
 
                if(listaDeAmigosDoOutro.size() > 0){

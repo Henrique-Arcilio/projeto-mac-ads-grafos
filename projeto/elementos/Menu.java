@@ -23,6 +23,7 @@ public class Menu {
                     System.out.print("Digite o nome para adicionar: ");
                     nome = scanner.next();
                     usuario.adicionarAmigo(nome);
+                    System.out.println("Amigo adicionado!");
                     break;
                 case 2:
                     System.out.println("--- Remover amigo ---");
@@ -76,7 +77,7 @@ public class Menu {
 
         System.out.print("""
             ---- Bem vindo(a)! ----
-            1- Logar com uma conta ja existente"
+            1- Logar com uma conta ja existente
             2- Cadastrar uma nova conta
             Digite o numero correspondente a sua escolha: """);
 

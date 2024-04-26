@@ -4,11 +4,20 @@ import java.util.HashMap;
 public class Usuario {
     private String nome;
     private String senha;
+    private Integer idUsuario;
     private ArrayList<Usuario> listaDeAmigos = new ArrayList<Usuario>();
 
     public Usuario(String nome, String senha){
         this.nome = nome;
         this.senha = senha;
+    }
+
+    public Integer getIdUsuario() {
+        return idUsuario;
+    }
+
+    public void setIdUsuario(int idUsuario) {
+        this.idUsuario = idUsuario;
     }
 
     public String getNome(){
@@ -36,7 +45,6 @@ public class Usuario {
             for (Usuario usuario : Rede.getUsuariosDaRede().values()){
                 if (usuario.getNome().equals(nomeAdicionar)){
                     this.listaDeAmigos.add(usuario);
-                    System.out.println("Amigo adicionado!");
                     usuario.adicionarAmigo(this.nome); //O usuário também adiciona a pessoa
                 }
             }
