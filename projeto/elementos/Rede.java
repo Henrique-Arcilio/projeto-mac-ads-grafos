@@ -6,7 +6,7 @@ public class Rede {
   
     private static HashMap<Integer, Usuario> usuariosDaRede = new HashMap<Integer, Usuario>();
 
-    public static void cadastrarUsuario() throws Exception{
+    public static Usuario cadastrarUsuario() throws Exception{
         
         Scanner scanner = new Scanner(System.in);
 
@@ -37,47 +37,42 @@ public class Rede {
             }
 
             Usuario usuario = new Usuario(nome, senha);
-            usuariosDaRede.put(usuariosDaRede.size(), usuario);
+            Integer idUsuario = usuariosDaRede.size();
+            usuario.setIdUsuario(idUsuario);
+            usuariosDaRede.put(idUsuario, usuario);
 
             System.out.println("Seu cadrasto foi criado com sucesso");
-            break;
+            return usuario;
         }
     }
 
-    public static boolean validarLogin(String nome, String senha){
+    public static Usuario validarLogin(String nome, String senha){
         for(Usuario usuario : usuariosDaRede.values()){
             if(usuario.getNome().equals(nome) && usuario.getSenha().equals(senha)){
-                    return true;
-                }
+                return usuario;
+            }
         }
-        return false;
+        return null;
     }
 
     public static HashMap<String, Integer> recomendarAmigos(Usuario usuario){
 
         int[][] matriz = MatrizAdjacencia.criarMatriz();
-        Integer indexUsuarioAlvo = null;
-
+        Integer idUsuarioAlvo = usuario.getIdUsuario();
         HashMap<String, Integer> AmigosRecomendaveis = new HashMap<String, Integer>();
-        for (int index : usuariosDaRede.keySet()){
-            if(usuario.equals(usuariosDaRede.get(index))){
-                indexUsuarioAlvo = index;
-                break;
-            }
-         
-        }
+
         int numAmigosComuns = 0;    
+        
         for(int i = 0; i < matriz.length; i++){
 
-            if(indexUsuarioAlvo != null && matriz[i][indexUsuarioAlvo] == 0 && i != indexUsuarioAlvo){
+            if(idUsuarioAlvo != null && matriz[i][idUsuarioAlvo] == 0 && i != idUsuarioAlvo){
 
                Usuario usuarioNaoAmigo = usuariosDaRede.get(i);
-
-               ArrayList<Integer> listaDeAmigosDoOutro = usuarioNaoAmigo.listarAmigosPorIndex();
+               ArrayList<Usuario> listaDeAmigosDoOutro = usuarioNaoAmigo.getListaDeAmigos();
 
                if(listaDeAmigosDoOutro.size() > 0){
-                    for(Integer index : listaDeAmigosDoOutro){
-                            if(matriz[index][indexUsuarioAlvo] == 1){
+                    for(Usuario amigo : listaDeAmigosDoOutro){
+                            if(matriz[amigo.getIdUsuario()][idUsuarioAlvo] == 1){
                                 numAmigosComuns += 1;
                             }
                     } 
@@ -88,7 +83,6 @@ public class Rede {
         }
         return AmigosRecomendaveis;
     }
-
 
     public static HashMap<Integer, Usuario> getUsuariosDaRede() {
         return usuariosDaRede;
