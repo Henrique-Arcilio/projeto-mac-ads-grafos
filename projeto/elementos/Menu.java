@@ -65,8 +65,7 @@ public class Menu {
             1- Adicionar amigo
             2- Remover amigo
             3- Recomendar amigo
-            4- Exibir lista de amigos
-            5- Conversar com amigo
+            4- Exibir lista de amigos 
             Digite o numero correspondente a sua escolha: """);
     }
 
