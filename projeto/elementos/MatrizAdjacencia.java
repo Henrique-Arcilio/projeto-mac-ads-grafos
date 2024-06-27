@@ -6,7 +6,7 @@ public class MatrizAdjacencia {
         
         HashMap<Integer, Usuario> listaUsuarios = Rede.getUsuariosDaRede();
         int quantia = listaUsuarios.size();
-        int[][] matriz = new int[quantia][quantia];
+        int[][] matriz = new int[quantia][quantia]; 
 
         for(int i = 0; i < quantia; i++){
             for(int j = 0; j < quantia; j++){

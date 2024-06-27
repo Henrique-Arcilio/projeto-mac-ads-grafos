@@ -7,7 +7,7 @@ public class Rede {
     private static HashMap<Integer, Usuario> usuariosDaRede = new HashMap<Integer, Usuario>();
 
     public static Usuario cadastrarUsuario() throws Exception{
-        
+
         Scanner scanner = new Scanner(System.in);
 
         while(true){
@@ -15,15 +15,13 @@ public class Rede {
             String nome = scanner.nextLine();
 
             if (nome.length() < 2 ||  nome.length() > 30){
-                Exception NomeInvalido = new Exception("Seu login deve ter de 2 à 30 caracteres");
-                throw NomeInvalido;
+                throw new Exception("Seu login deve ter de 2 à 30 caracteres");
             }
 
             if(usuariosDaRede.size() > 0){
                 for(Usuario usuario : usuariosDaRede.values()){
                     if(usuario.getNome().equals(nome)){
-                        Exception NomeExistente = new Exception(usuario.getNome() + " já existe, tente novamente");
-                        throw NomeExistente;
+                        throw new Exception(usuario.getNome() + " já existe, tente novamente");
                     }
                 }
             }
@@ -32,8 +30,7 @@ public class Rede {
             String senha = scanner.nextLine();
 
             if((senha.length() < 8 ||  senha.length() > 30)){
-                Exception SenhaInvalida = new Exception("A senha precisa ter de 8 à 30 caracteres");
-                throw SenhaInvalida;
+                throw new Exception("A senha precisa ter de 8 à 30 caracteres");
             }
 
             Usuario usuario = new Usuario(nome, senha);

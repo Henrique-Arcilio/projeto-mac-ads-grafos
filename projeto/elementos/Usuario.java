@@ -11,6 +11,44 @@ public class Usuario {
         this.senha = senha;
     }
 
+    public void adicionarAmigo(String nomeAdicionar){
+        if (!(verificarExistenciaDeAmizade(nomeAdicionar)) && verificarExistenciaDeUsuario(nomeAdicionar) != null){
+            for (Usuario usuario : Rede.getUsuariosDaRede().values()){
+                if (usuario.getNome().equals(nomeAdicionar)){
+                    this.listaDeAmigos.add(usuario);
+                }
+            }
+        }
+    }
+
+    public void excluirAmigo(String nomeRemover){
+        Usuario usuarioExcluido = verificarExistenciaDeUsuario(nomeRemover);
+        if (verificarExistenciaDeAmizade(nomeRemover) && usuarioExcluido != null ){
+            for(Usuario usuario : this.listaDeAmigos){
+                if(usuario.getNome().equals(usuarioExcluido.getNome())){
+                    listaDeAmigos.remove(usuario);
+                }
+            }
+        }
+    }
+
+    public boolean verificarExistenciaDeAmizade(String nome){
+        for(Usuario amigo : listaDeAmigos){
+            if (amigo.getNome().equals(nome)){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public Usuario verificarExistenciaDeUsuario(String nome) {
+        for (Usuario usuario : Rede.getUsuariosDaRede().values()) {
+            if (nome.equals(usuario.getNome())) {
+                return usuario;
+            }
+        }
+        return null;
+    }
     public Integer getIdUsuario() {
         return idUsuario;
     }
@@ -38,41 +76,4 @@ public class Usuario {
     public ArrayList<Usuario> getListaDeAmigos(){
         return this.listaDeAmigos;
     }
-
-    public void adicionarAmigo(String nomeAdicionar){
-        if (!(verificarExistenciaDeAmizade(nomeAdicionar)) && verificarExistenciaDeUsuario(nomeAdicionar)){
-            for (Usuario usuario : Rede.getUsuariosDaRede().values()){
-                if (usuario.getNome().equals(nomeAdicionar)){
-                    this.listaDeAmigos.add(usuario);
-                    usuario.adicionarAmigo(this.nome); //O usuário também adiciona a pessoa
-                }
-            }
-        }
-    }
-
-    public void excluirAmigo(String nomeRemover){
-        if (verificarExistenciaDeUsuario(nomeRemover) && verificarExistenciaDeAmizade(nomeRemover) == false){
-
-        }
-    }
-
-    public boolean verificarExistenciaDeAmizade(String nome){
-        for(Usuario amigo : listaDeAmigos){
-            if (amigo.getNome().equals(nome)){
-                return true;
-            }
-        }
-        return false;
-    }
-
-    public boolean verificarExistenciaDeUsuario(String nome) {
-        for (Usuario usuario : Rede.getUsuariosDaRede().values()) {
-            if (nome.equals(usuario.getNome())) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-        
 }
