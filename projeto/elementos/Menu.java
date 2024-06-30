@@ -19,34 +19,34 @@ public class Menu {
                     mostrarMenuInicial();
                     break;
                 case 1:
-                    System.out.println("--- Adicionar amigo ---");
-                    System.out.print("Digite o nome para adicionar: ");
+                    System.out.println("--- Seguir amigo ---");
+                    System.out.print("Digite o nome para seguir: ");
                     nome = scanner.next();
-                    usuario.adicionarAmigo(nome);
-                    System.out.println("Amigo adicionado!");
+                    usuario.seguirUsuario(nome);
+                    System.out.println("Agora você segue " + nome);
                     break;
                 case 2:
-                    System.out.println("--- Remover amigo ---");
-                    System.out.print("Digite o nome do amigo que você deseja remover: ");
+                    System.out.println("--- Parar de seguir usuario ---");
+                    System.out.print("Digite o nome do usuario que você deseja parar de seguir: ");
                     nome = scanner.next();
-                    usuario.excluirAmigo(nome);
+                    usuario.pararDeSeguir(nome);
                     break;
                 case 3:
 
-                    System.out.println("--- Amigos Recomendados ---");
+                    System.out.println("--- Usuarios Recomendáveis ---");
 
-                    HashMap<String, Integer> listaDeRecomendados = Rede.recomendarAmigos(usuario);
+                    HashMap<String, Integer> listaDeRecomendados = Rede.recomendarUsuarios(usuario);
                     for (Map.Entry<String, Integer> entry : listaDeRecomendados.entrySet()) {
-                        String amigo = entry.getKey();
-                        Integer amigosEmComum = entry.getValue();
-                        System.out.println("Amigo: " + amigo + ", Quantidade de amigos em comum: " + amigosEmComum);
+                        String pessoa = entry.getKey();
+                        Integer seguidosEmComum = entry.getValue();
+                        System.out.println("Usuario: " + pessoa + ", Quantidade de seguidores em comum: " + seguidosEmComum);
                     }
 
                     break;
                 case 4:
-                    System.out.println("--- Lista de Amigos ---");
-                    ArrayList<Usuario> listaDeAmigos = usuario.getListaDeAmigos();
-                    for (Usuario usuarioMostrar : listaDeAmigos) {
+                    System.out.println("--- Lista de seguidores ---");
+                    ArrayList<Usuario> listaDeSeguindo = usuario.getListaDeSeguindo();
+                    for (Usuario usuarioMostrar : listaDeSeguindo) {
                         System.out.println(usuarioMostrar.getNome());
                     }
                     System.out.println();
@@ -59,13 +59,13 @@ public class Menu {
 
     public void mostrarMenu(){
 
-        System.out.println("""
+        System.out.print("""
             ---- Menu ----
             0- Sair
-            1- Adicionar amigo
-            2- Remover amigo
-            3- Recomendar amigo
-            4- Exibir lista de amigos 
+            1- Seguir usuario
+            2- Parar de seguir
+            3- Recomendar usuario
+            4- Exibir lista de seguidores 
             Digite o numero correspondente a sua escolha: """);
     }
 
@@ -95,10 +95,14 @@ public class Menu {
                     System.out.println("Seu cadastro foi criado.");
                     Menu menu = new Menu();
                     menu.run(usuario);
+
                 } else {
-                    mostrarMenuInicial();}
+                    mostrarMenuInicial();
+                }
                 break;
+
             case 2:
+                
                 while (true) {
                     try {
                         Usuario usuarioCadastrar = Rede.cadastrarUsuario();
@@ -110,7 +114,7 @@ public class Menu {
                         
                     }
                 }
-                
+
                 break;
             default:
                 mostrarMenuInicial();

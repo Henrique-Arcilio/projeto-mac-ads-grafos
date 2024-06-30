@@ -11,8 +11,8 @@ public class MatrizAdjacencia {
         for(int i = 0; i < quantia; i++){
             for(int j = 0; j < quantia; j++){
                 Usuario usuario = listaUsuarios.get(i);
-                Usuario amigo = listaUsuarios.get(j);
-                if((usuario.verificarExistenciaDeAmizade(amigo.getNome()))){
+                Usuario seguido = listaUsuarios.get(j);
+                if((usuario.isSeguido(seguido.getNome()))){
                     matriz[j][i] = 1;
                 }
                 else{

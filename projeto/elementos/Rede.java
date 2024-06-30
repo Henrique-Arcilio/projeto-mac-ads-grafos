@@ -52,33 +52,33 @@ public class Rede {
         return null;
     }
 
-    public static HashMap<String, Integer> recomendarAmigos(Usuario usuario){
+    public static HashMap<String, Integer> recomendarUsuarios(Usuario usuarioRequisitante){
 
         int[][] matriz = MatrizAdjacencia.criarMatriz();
-        Integer idUsuarioAlvo = usuario.getIdUsuario();
-        HashMap<String, Integer> AmigosRecomendaveis = new HashMap<String, Integer>();
+        Integer idUsuarioAlvo = usuarioRequisitante.getIdUsuario();
+        HashMap<String, Integer> usuariosRecomendaveis = new HashMap<String, Integer>();
 
-        int numAmigosComuns = 0;    
+        int seguindoEmComum = 0;    
         
         for(int i = 0; i < matriz.length; i++){
 
             if(idUsuarioAlvo != null && matriz[i][idUsuarioAlvo] == 0 && i != idUsuarioAlvo){
 
-               Usuario usuarioNaoAmigo = usuariosDaRede.get(i);
-               ArrayList<Usuario> listaDeAmigosDoOutro = usuarioNaoAmigo.getListaDeAmigos();
+               Usuario usuarioNaoSeguido = usuariosDaRede.get(i);
+               ArrayList<Usuario> seguidosPeloOutro = usuarioNaoSeguido.getListaDeSeguindo();
 
-               if(listaDeAmigosDoOutro.size() > 0){
-                    for(Usuario amigo : listaDeAmigosDoOutro){
-                            if(matriz[amigo.getIdUsuario()][idUsuarioAlvo] == 1){
-                                numAmigosComuns += 1;
+               if(seguidosPeloOutro.size() > 0){
+                    for(Usuario usuario : seguidosPeloOutro){
+                            if(matriz[usuario.getIdUsuario()][idUsuarioAlvo] == 1){
+                                seguindoEmComum += 1;
                             }
                     } 
-                    AmigosRecomendaveis.put(usuarioNaoAmigo.getNome(), numAmigosComuns);
-                    numAmigosComuns = 0;
+                    usuariosRecomendaveis.put(usuarioNaoSeguido.getNome(), seguindoEmComum);
+                    seguindoEmComum = 0;
                 }
             }
         }
-        return AmigosRecomendaveis;
+        return usuariosRecomendaveis;
     }
 
     public static HashMap<Integer, Usuario> getUsuariosDaRede() {

@@ -4,37 +4,38 @@ public class Usuario {
     private String nome;
     private String senha;
     private Integer idUsuario;
-    private ArrayList<Usuario> listaDeAmigos = new ArrayList<Usuario>();
+    private ArrayList<Usuario> listaDeSeguindo = new ArrayList<Usuario>();
 
     public Usuario(String nome, String senha){
         this.nome = nome;
         this.senha = senha;
     }
 
-    public void adicionarAmigo(String nomeAdicionar){
-        if (!(verificarExistenciaDeAmizade(nomeAdicionar)) && verificarExistenciaDeUsuario(nomeAdicionar) != null){
+    public void seguirUsuario(String nome){
+        if (!(isSeguido(nome)) && verificarExistenciaDeUsuario(nome) != null){
             for (Usuario usuario : Rede.getUsuariosDaRede().values()){
-                if (usuario.getNome().equals(nomeAdicionar)){
-                    this.listaDeAmigos.add(usuario);
+                if (usuario.getNome().equals(nome)){
+                    this.listaDeSeguindo.add(usuario);
+                    usuario.seguirUsuario(this.nome);
                 }
             }
         }
     }
 
-    public void excluirAmigo(String nomeRemover){
-        Usuario usuarioExcluido = verificarExistenciaDeUsuario(nomeRemover);
-        if (verificarExistenciaDeAmizade(nomeRemover) && usuarioExcluido != null ){
-            for(Usuario usuario : this.listaDeAmigos){
-                if(usuario.getNome().equals(usuarioExcluido.getNome())){
-                    listaDeAmigos.remove(usuario);
+    public void pararDeSeguir(String nomeDoUsuario){
+        Usuario usuarioSeguido = verificarExistenciaDeUsuario(nomeDoUsuario);
+        if (isSeguido(nomeDoUsuario) && usuarioSeguido != null ){
+            for(Usuario usuario : this.listaDeSeguindo){
+                if(usuario.getNome().equals(usuarioSeguido.getNome())){
+                    listaDeSeguindo.remove(usuario);
                 }
             }
         }
     }
 
-    public boolean verificarExistenciaDeAmizade(String nome){
-        for(Usuario amigo : listaDeAmigos){
-            if (amigo.getNome().equals(nome)){
+    public boolean isSeguido(String nomeDoUsuario){
+        for(Usuario seguidor : listaDeSeguindo){
+            if (seguidor.getNome().equals(nomeDoUsuario)){
                 return true;
             }
         }
@@ -73,7 +74,7 @@ public class Usuario {
         this.senha = senha;
     }
 
-    public ArrayList<Usuario> getListaDeAmigos(){
-        return this.listaDeAmigos;
+    public ArrayList<Usuario> getListaDeSeguindo(){
+        return this.listaDeSeguindo;
     }
 }
